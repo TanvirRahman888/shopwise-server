@@ -112,7 +112,13 @@ export const getProducts = async (req: Request, res: Response) => {
 
 export const getProductById = async (req: Request, res: Response) => {
   try {
-    const product = await Product.findById(req.params.id);
+    const { id } = req.params;
+
+    const isMongoId = /^[0-9a-fA-F]{24}$/.test(id);
+
+    const product = isMongoId
+      ? await Product.findById(id)
+      : await Product.findOne({ slug: id });
 
     if (!product) {
       return res.status(404).json({
