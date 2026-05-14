@@ -6,6 +6,7 @@
     "outDir": "./dist",
     "moduleResolution": "node16",
     "ignoreDeprecations": "6.0",
+    "types": ["node"],
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,

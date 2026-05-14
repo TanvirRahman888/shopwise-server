@@ -112,7 +112,15 @@ export const getProducts = async (req: Request, res: Response) => {
 
 export const getProductById = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const idParam = req.params.id;
+    const id = Array.isArray(idParam) ? idParam[0] : idParam;
+
+    if (!id) {
+      return res.status(400).json({
+        success: false,
+        message: "Product ID or slug is required",
+      });
+    }
 
     const isMongoId = /^[0-9a-fA-F]{24}$/.test(id);
 
