@@ -196,3 +196,25 @@ export const deleteProduct = async (req: Request, res: Response) => {
     });
   }
 };
+
+export const getAdminProducts = async (req: Request, res: Response) => {
+  try {
+    const products = await Product.find({}).sort({ createdAt: -1 });
+
+    return res.json({
+      success: true,
+      products,
+      pagination: {
+        total: products.length,
+        page: 1,
+        limit: products.length,
+        totalPages: 1,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Failed to get admin products",
+    });
+  }
+};

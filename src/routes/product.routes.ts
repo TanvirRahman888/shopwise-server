@@ -2,6 +2,7 @@ import express from "express";
 import {
   createProduct,
   deleteProduct,
+  getAdminProducts,
   getProductById,
   getProducts,
   updateProduct,
@@ -13,6 +14,7 @@ const router = express.Router();
 
 router.get("/", getProducts);
 router.get("/:id", getProductById);
+router.get("/admin/all", protect, authorizeRoles("admin"), getAdminProducts);
 
 router.post("/", protect, authorizeRoles("admin"), createProduct);
 router.patch("/:id", protect, authorizeRoles("admin"), updateProduct);
